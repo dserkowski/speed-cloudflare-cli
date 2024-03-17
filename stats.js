@@ -31,7 +31,7 @@ function quartile(values, percentile) {
   return values[base];
 }
 
-function jitter(values) {
+function _jitters(values) {
   // Average distance between consecutive latency measurements...
    let jitters = [];
 
@@ -39,10 +39,34 @@ function jitter(values) {
     jitters.push(Math.abs(values[i] - values[i+1]));
   }
 
-  return average(jitters);
+  return jitters;
+}
+
+function jitter(values) {
+  return average(_jitters(values));
+}
+
+function jitterP90(values) {
+    return quartile(_jitters(values), 0.90);
+}
+
+function jitterP95(values) {
+    return quartile(_jitters(values), 0.95);
+}
+
+function p90(values) {
+    return quartile(values, 0.90);
+}
+
+function p95(values) {
+    return quartile(values, 0.95);
 }
 
 exports.average = average;
 exports.median = median;
 exports.quartile = quartile;
 exports.jitter = jitter;
+exports.jitterP90 = jitterP90;
+exports.jitterP95 = jitterP95;
+exports.p90 = p90;
+exports.p95 = p95;
