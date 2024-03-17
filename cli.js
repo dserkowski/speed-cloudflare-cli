@@ -151,8 +151,8 @@ function measureSpeed(bytes, duration) {
 async function measureLatency() {
   const measurements = [];
 
-  for (let i = 0; i < 20; i += 1) {
-    await download(1000).then(
+  for (let i = 0; i < 100; i += 1) {
+    await download(500).then(
       (response) => {
         // TTFB - Server processing time
         measurements.push(response[4] - response[0] - response[6]);
