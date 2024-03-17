@@ -49,6 +49,10 @@ function jitterP95(values) {
     return quartile(_jitters(values), 0.95);
 }
 
+function jitterP95(values) {
+    return quartile(_jitters(values), 0.99);
+}
+
 function p90(values) {
     return quartile(values, 0.90);
 }
@@ -57,11 +61,17 @@ function p95(values) {
     return quartile(values, 0.95);
 }
 
+function p99(values) {
+    return quartile(values, 0.99);
+}
+
 exports.average = average;
 exports.median = median;
 exports.quartile = quartile;
 exports.jitter = jitter;
 exports.jitterP90 = jitterP90;
 exports.jitterP95 = jitterP95;
+exports.jitterP99 = jitterP99;
 exports.p90 = p90;
 exports.p95 = p95;
+exports.p99 = p99;
