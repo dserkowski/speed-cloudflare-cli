@@ -49,7 +49,7 @@ function jitterP95(values) {
     return quartile(_jitters(values), 0.95);
 }
 
-function jitterP95(values) {
+function jitterP99(values) {
     return quartile(_jitters(values), 0.99);
 }
 
