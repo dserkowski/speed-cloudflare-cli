@@ -216,22 +216,30 @@ function logInfo(text, data) {
   console.log(bold(' '.repeat(15 - text.length), `${text}:`, blue(data)));
 }
 
-function formatLatency(value, warnThreshold) {
+function formatResult(value, unitName, warnThreshold) {
   if (value > warnThreshold) {
-    return yellow(`${value.toFixed(2)} ms (WARN)`)
+    return yellow(`${value.toFixed(2)} ${unitName} (WARN)`)
   } else {
-    return green(`${value.toFixed(2)} ms`)
+    return green(`${value.toFixed(2)} ${unitName}`)
   }
 }
 
+function formatLatency(value, warnThreshold) {
+  return formatResult(value, 'ms', warnThreshold)
+}
+
+function formatSpeed(value, warnThreshold) {
+  return formatResult(value, 'Mbps', warnThreshold)
+}
+
 function logLatency(data) {
-  console.log(bold('         Latency (avg):', formatLatency(data[3], 50.0)));
+  console.log(bold('   Latency (avg):', formatLatency(data[3], 65.0)));
+  console.log(bold('   Latency (p99):', formatLatency(data[8], 85.0)));
   // console.log(bold('         Latency (p95):', magenta(`${data[7].toFixed(2)} ms`)));
-  console.log(bold('         Latency (p99):', formatLatency(data[8], 80.0)));
   
-  console.log(bold('          Jitter (avg):', formatLatency(data[4], 10.0)));
+  console.log(bold('    Jitter (avg):', formatLatency(data[4], 10.0)));
+  console.log(bold('    Jitter (p99):', formatLatency(data[6], 20.0)));
   // console.log(bold('          Jitter (p95):', magenta(`${data[5].toFixed(2)} ms`)));
-  console.log(bold('          Jitter (p99):', formatLatency(data[6], 25.0)));
 }
 
 function logSpeedTestResult(size, test) {
@@ -245,7 +253,7 @@ function logDownloadSpeed(tests) {
   console.log(
     bold(
       '  Download speed:',
-      green(stats.quartile(tests, 0.9).toFixed(2), 'Mbps')
+      formatSpeed(stats.quartile(tests, 0.9), 3.0)
     )
   );
 }
@@ -254,7 +262,7 @@ function logUploadSpeed(tests) {
   console.log(
     bold(
       '    Upload speed:',
-      green(stats.quartile(tests, 0.9).toFixed(2), 'Mbps')
+      formatSpeed(stats.quartile(tests, 0.9), 1.0)
     )
   );
 }
