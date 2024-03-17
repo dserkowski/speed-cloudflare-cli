@@ -216,8 +216,9 @@ function logInfo(text, data) {
   console.log(bold(' '.repeat(15 - text.length), `${text}:`, blue(data)));
 }
 
-function formatResult(value, unitName, warnThreshold) {
-  if (value > warnThreshold) {
+function formatResult(value, unitName, warnThreshold, lowerBetter) {
+  const cmpResult = lowerBetter ? (value > warnThreshold) : (value < warnThreshold);
+  if (cmpResult) {
     return yellow(`${value.toFixed(2)} ${unitName} (WARN)`)
   } else {
     return green(`${value.toFixed(2)} ${unitName}`)
@@ -225,11 +226,11 @@ function formatResult(value, unitName, warnThreshold) {
 }
 
 function formatLatency(value, warnThreshold) {
-  return formatResult(value, 'ms', warnThreshold)
+  return formatResult(value, 'ms', warnThreshold, true)
 }
 
 function formatSpeed(value, warnThreshold) {
-  return formatResult(value, 'Mbps', warnThreshold)
+  return formatResult(value, 'Mbps', warnThreshold, false)
 }
 
 function logLatency(data) {
