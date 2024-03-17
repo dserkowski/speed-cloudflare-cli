@@ -152,7 +152,7 @@ async function measureLatency() {
   const measurements = [];
 
   for (let i = 0; i < 50; i += 1) {
-    await download(100).then(
+    await download(10).then(
       (response) => {
         // TTFB - Server processing time
         measurements.push(response[4] - response[0] - response[6]);
