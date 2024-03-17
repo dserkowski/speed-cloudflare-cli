@@ -169,6 +169,10 @@ async function measureLatency() {
     stats.average(measurements),
     stats.median(measurements),
     stats.jitter(measurements),
+    stats.jitterP90(measurements),
+    stats.jitterP95(measurements),
+    stats.p90(measurements),
+    stats.p95(measurements),
   ];
 }
 
@@ -213,8 +217,12 @@ function logInfo(text, data) {
 }
 
 function logLatency(data) {
-  console.log(bold('         Latency:', magenta(`${data[3].toFixed(2)} ms`)));
-  console.log(bold('          Jitter:', magenta(`${data[4].toFixed(2)} ms`)));
+  console.log(bold('         Latency (avg):', magenta(`${data[3].toFixed(2)} ms`)));
+  console.log(bold('         Latency (p90):', magenta(`${data[7].toFixed(2)} ms`)));
+  console.log(bold('         Latency (p95):', magenta(`${data[8].toFixed(2)} ms`)));
+  console.log(bold('          Jitter (avg):', magenta(`${data[4].toFixed(2)} ms`)));
+  console.log(bold('          Jitter (p90):', magenta(`${data[5].toFixed(2)} ms`)));
+  console.log(bold('          Jitter (p95):', magenta(`${data[6].toFixed(2)} ms`)));
 }
 
 function logSpeedTestResult(size, test) {
