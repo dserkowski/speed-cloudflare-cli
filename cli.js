@@ -151,7 +151,7 @@ function measureSpeed(bytes, duration) {
 async function measureLatency() {
   const measurements = [];
 
-  for (let i = 0; i < 1000; i += 1) {
+  for (let i = 0; i < 100; i += 1) {
     await download(50).then(
       (response) => {
         // TTFB - Server processing time
@@ -216,13 +216,22 @@ function logInfo(text, data) {
   console.log(bold(' '.repeat(15 - text.length), `${text}:`, blue(data)));
 }
 
+function formatLatency(value, warnThreshold) {
+  if (value > warnThreshold) {
+    return yellow(`${value.toFixed(2)} ms (WARN)`)
+  } else {
+    return green(`${value.toFixed(2)} ms`)
+  }
+}
+
 function logLatency(data) {
-  console.log(bold('         Latency (avg):', magenta(`${data[3].toFixed(2)} ms`)));
-  console.log(bold('         Latency (p95):', magenta(`${data[7].toFixed(2)} ms`)));
-  console.log(bold('         Latency (p99):', magenta(`${data[8].toFixed(2)} ms`)));
-  console.log(bold('          Jitter (avg):', magenta(`${data[4].toFixed(2)} ms`)));
-  console.log(bold('          Jitter (p95):', magenta(`${data[5].toFixed(2)} ms`)));
-  console.log(bold('          Jitter (p99):', magenta(`${data[6].toFixed(2)} ms`)));
+  console.log(bold('         Latency (avg):', formatLatency(data[3], 50.0)));
+  // console.log(bold('         Latency (p95):', magenta(`${data[7].toFixed(2)} ms`)));
+  console.log(bold('         Latency (p99):', formatLatency(data[8], 80.0)));
+  
+  console.log(bold('          Jitter (avg):', formatLatency(data[4], 10.0)));
+  // console.log(bold('          Jitter (p95):', magenta(`${data[5].toFixed(2)} ms`)));
+  console.log(bold('          Jitter (p99):', formatLatency(data[6], 25.0)));
 }
 
 function logSpeedTestResult(size, test) {
@@ -264,7 +273,7 @@ async function speedTest() {
   logLatency(ping);
 
   const testDown1 = await measureDownload(101000, 2);
-  logSpeedTestResult('100kB', testDown1);
+  //logSpeedTestResult('100kB', testDown1);
 
   //const testDown2 = await measureDownload(1001000, 8);
   //logSpeedTestResult('1MB', testDown2);
