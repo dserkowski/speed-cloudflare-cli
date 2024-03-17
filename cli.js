@@ -151,8 +151,8 @@ function measureSpeed(bytes, duration) {
 async function measureLatency() {
   const measurements = [];
 
-  for (let i = 0; i < 100; i += 1) {
-    await download(500).then(
+  for (let i = 0; i < 1000; i += 1) {
+    await download(50).then(
       (response) => {
         // TTFB - Server processing time
         measurements.push(response[4] - response[0] - response[6]);
@@ -169,10 +169,10 @@ async function measureLatency() {
     stats.average(measurements),
     stats.median(measurements),
     stats.jitter(measurements),
-    stats.jitterP90(measurements),
     stats.jitterP95(measurements),
-    stats.p90(measurements),
+    stats.jitterP99(measurements),
     stats.p95(measurements),
+    stats.p99(measurements),
   ];
 }
 
@@ -218,11 +218,11 @@ function logInfo(text, data) {
 
 function logLatency(data) {
   console.log(bold('         Latency (avg):', magenta(`${data[3].toFixed(2)} ms`)));
-  console.log(bold('         Latency (p90):', magenta(`${data[7].toFixed(2)} ms`)));
-  console.log(bold('         Latency (p95):', magenta(`${data[8].toFixed(2)} ms`)));
+  console.log(bold('         Latency (p95):', magenta(`${data[7].toFixed(2)} ms`)));
+  console.log(bold('         Latency (p99):', magenta(`${data[8].toFixed(2)} ms`)));
   console.log(bold('          Jitter (avg):', magenta(`${data[4].toFixed(2)} ms`)));
-  console.log(bold('          Jitter (p90):', magenta(`${data[5].toFixed(2)} ms`)));
-  console.log(bold('          Jitter (p95):', magenta(`${data[6].toFixed(2)} ms`)));
+  console.log(bold('          Jitter (p95):', magenta(`${data[5].toFixed(2)} ms`)));
+  console.log(bold('          Jitter (p99):', magenta(`${data[6].toFixed(2)} ms`)));
 }
 
 function logSpeedTestResult(size, test) {
