@@ -16,17 +16,12 @@ function median(values) {
   if (values.length % 2) return values[half];
 
   return (values[half - 1] + values[half]) / 2;
-}
+}     
 
 function quartile(values, percentile) {
   values.sort((a, b) => a - b);
   const pos = (values.length - 1) * percentile;
   const base = Math.floor(pos);
-  const rest = pos - base;
-
-  if (values[base + 1] !== undefined) {
-    return values[base] + rest * (values[base + 1] - values[base]);
-  }
 
   return values[base];
 }
