@@ -2,7 +2,7 @@
 
 const { performance } = require('perf_hooks');
 const https = require('https');
-const { magenta, bold, yellow, green, blue } = require('./chalk.js');
+const { magenta, bold, red, yellow, green, blue } = require('./chalk.js');
 const stats = require('./stats.js');
 
 async function get(hostname, path) {
