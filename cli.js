@@ -219,7 +219,7 @@ function logInfo(text, data) {
 function formatResult(value, unitName, warnThreshold, lowerBetter) {
   const cmpResult = lowerBetter ? (value > warnThreshold) : (value < warnThreshold);
   if (cmpResult) {
-    return yellow(`${value.toFixed(2)} ${unitName} (WARN)`)
+    return bold(red(`${value.toFixed(2)} ${unitName} (WARN)`))
   } else {
     return green(`${value.toFixed(2)} ${unitName}`)
   }
@@ -234,12 +234,12 @@ function formatSpeed(value, warnThreshold) {
 }
 
 function logLatency(data) {
-  console.log(bold('   Latency (avg):', formatLatency(data[3], 65.0)));
-  console.log(bold('   Latency (p99):', formatLatency(data[8], 85.0)));
+  console.log('   Latency (avg):', formatLatency(data[3], 65.0));
+  console.log('   Latency (p99):', formatLatency(data[8], 85.0));
   // console.log(bold('         Latency (p95):', magenta(`${data[7].toFixed(2)} ms`)));
   
-  console.log(bold('    Jitter (avg):', formatLatency(data[4], 10.0)));
-  console.log(bold('    Jitter (p99):', formatLatency(data[6], 20.0)));
+  console.log('    Jitter (avg):', formatLatency(data[4], 10.0));
+  console.log('    Jitter (p99):', formatLatency(data[6], 15.0));
   // console.log(bold('          Jitter (p95):', magenta(`${data[5].toFixed(2)} ms`)));
 }
 
