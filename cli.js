@@ -213,7 +213,7 @@ async function measureUpload(bytes, iterations) {
 }
 
 function logInfo(text, data) {
-  console.log(bold(' '.repeat(15 - text.length), `${text}:`, blue(data)));
+  console.log(' '.repeat(15 - text.length), `${text}:`, blue(data));
 }
 
 function formatResult(value, unitName, warnThreshold, lowerBetter) {
@@ -252,19 +252,15 @@ function logSpeedTestResult(size, test) {
 
 function logDownloadSpeed(tests) {
   console.log(
-    bold(
       '  Download speed:',
       formatSpeed(stats.quartile(tests, 0.9), 3.0)
-    )
   );
 }
 
 function logUploadSpeed(tests) {
   console.log(
-    bold(
       '    Upload speed:',
       formatSpeed(stats.quartile(tests, 0.9), 1.0)
-    )
   );
 }
 
