@@ -235,12 +235,10 @@ function formatSpeed(value, warnThreshold) {
 
 function logLatency(data) {
   console.log('   Latency (avg):', formatLatency(data[3], 65.0));
-  console.log('   Latency (p99):', formatLatency(data[8], 85.0));
-  // console.log(bold('         Latency (p95):', magenta(`${data[7].toFixed(2)} ms`)));
+  console.log('   Latency (p95):', formatLatency(data[7], 85.0));
   
   console.log('    Jitter (avg):', formatLatency(data[4], 10.0));
-  console.log('    Jitter (p99):', formatLatency(data[6], 15.0));
-  // console.log(bold('          Jitter (p95):', magenta(`${data[5].toFixed(2)} ms`)));
+  console.log('    Jitter (p95):', formatLatency(data[5], 15.0));
 }
 
 function logSpeedTestResult(size, test) {
